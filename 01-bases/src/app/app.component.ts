@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public titulo: string = 'Contador App';
   public numero: number = 10;
+
+  acomular(valor: number){
+    this.numero += valor;
+  }
 }
