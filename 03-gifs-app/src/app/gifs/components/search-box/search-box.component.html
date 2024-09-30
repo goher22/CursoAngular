@@ -3,5 +3,6 @@
   type="text"
   class="form-control"
   placeholder="Buscar gifs"
-  value=""
+  (keyup)="search(textTagInput)"
+  #txtTagInput
 >
