@@ -11,6 +11,12 @@ const API_URL: string = "https://restcountries.com/v3.1";
 export class CountriesService {
   constructor(private httpClient: HttpClient) {}
 
+  searchCountryByAlphaCode(code: string): Observable<Country[]> {
+    return this.httpClient
+      .get<Country[]>(`${API_URL}/alpha/${code}`)
+      .pipe(catchError((error) => of([] as Country[])));
+  }
+
   searchCapital(term: string): Observable<Country[]> {
     return this.httpClient
       .get<Country[]>(`${API_URL}/capital/${term}`)
