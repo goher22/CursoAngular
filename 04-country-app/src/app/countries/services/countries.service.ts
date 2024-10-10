@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
 import { Country } from "../interfaces/Country";
+import { CacheStore } from "../interfaces/cache-store.intefaces";
 
 const API_URL: string = "https://restcountries.com/v3.1";
 
@@ -9,6 +10,21 @@ const API_URL: string = "https://restcountries.com/v3.1";
   providedIn: "root",
 })
 export class CountriesService {
+  public cacheStore: CacheStore = {
+    byCapital: {
+      term: "",
+      countries: [],
+    },
+    byCountry: {
+      term: "",
+      countries: [],
+    },
+    byRegion: {
+      region: "",
+      countries: [],
+    },
+  };
+
   constructor(private httpClient: HttpClient) {}
 
   searchCountryByAlphaCode(code: string): Observable<Country | null> {
