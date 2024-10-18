@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { interval, Observable } from "rxjs";
 
 @Component({
   selector: "app-uncommon-page",
@@ -45,4 +46,13 @@ export class UncommonPageComponent {
     age: 36,
     address: "Ottawa, Canada",
   };
+
+  //Async Pipe
+  public myObservableTimer: Observable<number> = interval(2000);
+
+  public promiseValue: Promise<string> = new Promise((res, rej) => {
+    setTimeout(() => {
+      res("Tenemos data en la promesa.");
+    }, 3500);
+  });
 }
