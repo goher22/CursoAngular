@@ -9,6 +9,7 @@ import { PrimeNgModule } from "../prime-ng/prime-ng.module";
 import { OrderComponent } from "./pages/order/order.component";
 import { ToggleCasePipe } from "./pipes/toggel-case.pipe";
 import { CanFlyePipe } from "./pipes/can-fly.pipe";
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CanFlyePipe } from "./pipes/can-fly.pipe";
     //PIPES
     ToggleCasePipe,
     CanFlyePipe,
+    SortByPipe,
   ],
   imports: [CommonModule, ProductsRoutingModule, PrimeNgModule],
 })
