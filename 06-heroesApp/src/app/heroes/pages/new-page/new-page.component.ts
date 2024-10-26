@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Publisher } from "../../interfaces/hero.interface";
+import { Hero, Publisher } from "../../interfaces/hero.interface";
+import { HeroService } from "../../services/heroes.service";
 
 @Component({
   selector: "app-new-page",
@@ -28,5 +29,16 @@ export class NewPageComponent {
     },
   ];
 
-  onSubmit(): void {}
+  constructor(private heroesService: HeroService) {}
+
+  get currentHero(): Hero {
+    const hero = this.heroForm.value as Hero;
+    return hero;
+  }
+
+  onSubmit(): void {
+    if (this.heroForm.invalid) return;
+
+    // this.heroesService.updateHero(this.heroForm.value);
+  }
 }
