@@ -27,4 +27,6 @@ export class NewPageComponent {
       desc: "Marvel - Comics",
     },
   ];
+
+  onSubmit(): void {}
 }
