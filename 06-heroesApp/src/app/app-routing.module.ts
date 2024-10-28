@@ -13,6 +13,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./heroes/heroes.module").then((m) => m.HeroesModule),
     canActivate: [AuthGuard],
+    canMatch: [AuthGuard],
   },
   {
     path: "404",
