@@ -1,11 +1,21 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+
+const rtx5090 = {
+  name: "RTX 5090",
+  price: 2500,
+  inStorage: 6,
+};
 
 @Component({
   templateUrl: "./basic-page.component.html",
   styles: ``,
 })
-export class BasicPageComponent {
+export class BasicPageComponent implements OnInit {
+  ngOnInit(): void {
+    this.myForm.reset(rtx5090);
+  }
+
   public myForm: FormGroup = new FormGroup({
     name: new FormControl("", [Validators.required, Validators.minLength(3)]),
     price: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -17,5 +27,10 @@ export class BasicPageComponent {
       return;
     }
     console.log(this.myForm.value);
+
+    this.myForm.reset({
+      price: 10,
+      inStorage: 0,
+    });
   }
 }
