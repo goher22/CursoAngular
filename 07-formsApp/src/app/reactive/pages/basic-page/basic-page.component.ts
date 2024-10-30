@@ -42,7 +42,7 @@ export class BasicPageComponent implements OnInit {
           return `Mínimo ${errors["minlength"].requiredLength} caracters.`;
       }
     }
-    return "Hola mundo";
+    return "";
   }
 
   onSave(): void {
