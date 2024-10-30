@@ -25,10 +25,14 @@
                 <input
                     class="form-control"
                     placeholder="Agregar favorito"
-                    formControlName="name"
+                    [formControl]="newFavorite"
                 />
 
-                <button class="btn btn-outline-primary" type="button">
+                <button
+                    class="btn btn-outline-primary"
+                    type="button"
+                    (click)="onAddToFavorites()"
+                >
                     Agregar favorito
                 </button>
             </div>
