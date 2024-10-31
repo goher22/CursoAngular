@@ -1,33 +1,44 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import * as customValidators from "../../../shared/validators/calidators";
+// import * as customValidators from "../../../shared/validators/calidators";
+import { ValidatorsService } from "../../../shared/services/validators.services";
 
 @Component({
   selector: "app-register-page",
   templateUrl: "./register-page.component.html",
   styles: ``,
 })
-export class RegisterPageComponent {
-  public myForm: FormGroup = new FormGroup({
-    name: new FormControl("", [
-      Validators.required,
-      Validators.pattern(customValidators.firstNameAndLastnamePattern),
-    ]),
-    email: new FormControl("", [
-      Validators.required,
-      Validators.pattern(customValidators.emailPattern),
-    ]),
-    userName: new FormControl("", {
-      validators: [Validators.required, customValidators.cantBeStride],
-    }),
-    password: new FormControl("", [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
-    password2: new FormControl("", [Validators.required]),
-  });
+export class RegisterPageComponent implements OnInit {
+  public myForm!: FormGroup;
 
-  isValidField(field: string) {}
+  constructor(private validatorsService: ValidatorsService) {}
+  ngOnInit(): void {
+    this.myForm = new FormGroup({
+      name: new FormControl("", [
+        Validators.required,
+        // Validators.pattern(customValidators.firstNameAndLastnamePattern),
+        Validators.pattern(this.validatorsService.firstNameAndLastnamePattern),
+      ]),
+      email: new FormControl("", [
+        Validators.required,
+        // Validators.pattern(customValidators.emailPattern),
+        Validators.pattern(this.validatorsService.emailPattern),
+      ]),
+      userName: new FormControl("", {
+        // validators: [Validators.required, customValidators.cantBeStride],
+        validators: [Validators.required, this.validatorsService.cantBeStride],
+      }),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      password2: new FormControl("", [Validators.required]),
+    });
+  }
+
+  isValidField(field: string) {
+    this.validatorsService.isValidField(this.myForm, field);
+  }
 
   onSubmit(): void {
     this.myForm.markAllAsTouched();
