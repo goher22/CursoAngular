@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { cantBeStride } from "../../../shared/validators/calidators";
 
 @Component({
   selector: "app-register-page",
@@ -10,7 +11,9 @@ export class RegisterPageComponent {
   public myForm: FormGroup = new FormGroup({
     name: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required]),
-    userName: new FormControl("", [Validators.required]),
+    userName: new FormControl("", {
+      validators: [Validators.required, cantBeStride],
+    }),
     password: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
