@@ -17,30 +17,45 @@ export class RegisterPageComponent implements OnInit {
     private emailValidatorService: EmailValidatorService,
   ) {}
   ngOnInit(): void {
-    this.myForm = new FormGroup({
-      name: new FormControl("", [
-        Validators.required,
-        // Validators.pattern(customValidators.firstNameAndLastnamePattern),
-        Validators.pattern(this.validatorsService.firstNameAndLastnamePattern),
-      ]),
-      email: new FormControl("", {
-        validators: [
+    this.myForm = new FormGroup(
+      {
+        name: new FormControl("", [
           Validators.required,
-          // Validators.pattern(customValidators.emailPattern),
-          Validators.pattern(this.validatorsService.emailPattern),
+          // Validators.pattern(customValidators.firstNameAndLastnamePattern),
+          Validators.pattern(
+            this.validatorsService.firstNameAndLastnamePattern,
+          ),
+        ]),
+        email: new FormControl("", {
+          validators: [
+            Validators.required,
+            // Validators.pattern(customValidators.emailPattern),
+            Validators.pattern(this.validatorsService.emailPattern),
+          ],
+          asyncValidators: [this.emailValidatorService.validate],
+        }),
+        userName: new FormControl("", {
+          // validators: [Validators.required, customValidators.cantBeStride],
+          validators: [
+            Validators.required,
+            this.validatorsService.cantBeStride,
+          ],
+        }),
+        password: new FormControl("", [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+        password2: new FormControl("", [Validators.required]),
+      },
+      {
+        validators: [
+          this.validatorsService.isFieldOneEqualFieldTwo(
+            "password",
+            "password2",
+          ),
         ],
-        asyncValidators: [this.emailValidatorService.validate],
-      }),
-      userName: new FormControl("", {
-        // validators: [Validators.required, customValidators.cantBeStride],
-        validators: [Validators.required, this.validatorsService.cantBeStride],
-      }),
-      password: new FormControl("", [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      password2: new FormControl("", [Validators.required]),
-    });
+      },
+    );
   }
 
   isValidField(field: string) {
