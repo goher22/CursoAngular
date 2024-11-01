@@ -11,7 +11,7 @@ import { filter, switchMap, tap } from "rxjs";
 })
 export class SelectorPageComponent implements OnInit {
   public countries: SmallCountry[] = [];
-  public borders: string[] = [];
+  public borders: SmallCountry[] = [];
   public myForm!: FormGroup;
 
   constructor(
@@ -39,6 +39,7 @@ export class SelectorPageComponent implements OnInit {
       .get("region")!
       .valueChanges.pipe(
         tap(() => this.myForm.get("country")!.setValue("")),
+        tap(() => (this.borders = [])),
         switchMap((region) =>
           this.countrieServices.getCountriesByRegion(region),
         ),
@@ -57,9 +58,12 @@ export class SelectorPageComponent implements OnInit {
         switchMap((alphaCode) =>
           this.countrieServices.getCountryByAlphaCode(alphaCode),
         ),
+        switchMap((country) =>
+          this.countrieServices.getCountryBorderByCodes(country.borders),
+        ),
       )
       .subscribe((countries) => {
-        this.borders = countries.borders;
+        this.borders = countries;
       });
   }
 }
