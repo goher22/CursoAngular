@@ -37,6 +37,12 @@ export interface Country {
   postalCode?: PostalCode;
 }
 
+export interface SmallCountry {
+  name: string;
+  cca3: string;
+  borders: string;
+}
+
 export interface CapitalInfo {
   latlng: number[];
 }
