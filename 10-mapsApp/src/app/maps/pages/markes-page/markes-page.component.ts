@@ -70,6 +70,10 @@ export class MarkesPageComponent implements AfterViewInit {
     });
 
     this.saveToLocalStorage();
+
+    marker.on("dragend", () => {
+      this.saveToLocalStorage();
+    });
   }
 
   deleteMarker(index: number) {
