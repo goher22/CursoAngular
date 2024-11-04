@@ -6,6 +6,11 @@ interface MarkerAndColor {
   color: string;
 }
 
+interface PlainMarker {
+  color: string;
+  lngLat: number[];
+}
+
 @Component({
   templateUrl: "./markes-page.component.html",
   styleUrl: "./markes-page.component.css",
@@ -26,6 +31,8 @@ export class MarkesPageComponent implements AfterViewInit {
       center: this.currentCenter,
       zoom: 10,
     });
+
+    this.readFromLocalStorage();
 
     // const markerHtml = document.createElement("div");
     // markerHtml.innerHTML = "Carlos gomez";
@@ -61,6 +68,8 @@ export class MarkesPageComponent implements AfterViewInit {
       marker,
       color,
     });
+
+    this.saveToLocalStorage();
   }
 
   deleteMarker(index: number) {
@@ -72,6 +81,26 @@ export class MarkesPageComponent implements AfterViewInit {
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat(),
+    });
+  }
+
+  saveToLocalStorage() {
+    const plainMarkers: PlainMarker[] = this.markers.map((marker) => ({
+      color: marker.color,
+      lngLat: marker.marker.getLngLat().toArray(),
+    }));
+
+    localStorage.setItem("plainMarkers", JSON.stringify(plainMarkers));
+  }
+
+  readFromLocalStorage() {
+    const plainMarkersString = localStorage.getItem("plainMarkers") ?? "[]";
+    const plainMarkers: PlainMarker[] = JSON.parse(plainMarkersString);
+
+    plainMarkers.forEach(({ color, lngLat }) => {
+      const coords = new LngLat(lngLat[0], lngLat[1]);
+
+      this.addMarker(coords, color);
     });
   }
 }
