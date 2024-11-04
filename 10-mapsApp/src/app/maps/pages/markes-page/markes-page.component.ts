@@ -1,6 +1,11 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { LngLat, Map, Marker } from "mapbox-gl";
 
+interface MarkerAndColor {
+  marker: Marker;
+  color: string;
+}
+
 @Component({
   templateUrl: "./markes-page.component.html",
   styleUrl: "./markes-page.component.css",
@@ -8,8 +13,10 @@ import { LngLat, Map, Marker } from "mapbox-gl";
 export class MarkesPageComponent implements AfterViewInit {
   @ViewChild("map")
   public divMap!: ElementRef;
+
   private map?: Map;
   public currentCenter: LngLat = new LngLat(-74.5, 40);
+  public markers: MarkerAndColor[] = [];
 
   ngAfterViewInit(): void {
     if (!this.divMap) throw "Elemento HTML no fue encontrado";
@@ -49,5 +56,15 @@ export class MarkesPageComponent implements AfterViewInit {
     })
       .setLngLat(lnglat)
       .addTo(this.map);
+
+    this.markers.push({
+      marker,
+      color,
+    });
+  }
+
+  deleteMarker(index: number) {
+    this.markers[index].marker.remove();
+    this.markers.splice(index, 1);
   }
 }
