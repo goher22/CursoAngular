@@ -29,4 +29,25 @@ export class MarkesPageComponent implements AfterViewInit {
     // });
     // marker.setLngLat(this.currentCenter).addTo(this.map);
   }
+
+  createMarke() {
+    if (!this.map) return;
+
+    const color = "#xxxxxx".replace(/x/g, (y) =>
+      ((Math.random() * 16) | 0).toString(16),
+    );
+
+    const lngLat = this.map.getCenter();
+    this.addMarker(lngLat, color);
+  }
+
+  addMarker(lnglat: LngLat, color: string) {
+    if (!this.map) return;
+    const marker = new Marker({
+      color,
+      draggable: true,
+    })
+      .setLngLat(lnglat)
+      .addTo(this.map);
+  }
 }
