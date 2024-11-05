@@ -1,11 +1,13 @@
 import { Directive, ElementRef, Input } from "@angular/core";
+import { ValidationErrors } from "@angular/forms";
 
 @Directive({
   selector: "[customLabel]",
 })
 export class CustomLabelDirective {
   private htmlElement?: ElementRef<HTMLElement>;
-  private _color = "red";
+  private _color: string = "red";
+  private _errors?: ValidationErrors | null | undefined;
 
   @Input()
   public set color(value: string) {
@@ -13,12 +15,45 @@ export class CustomLabelDirective {
     this.setStyle();
   }
 
+  @Input()
+  public set errors(value: ValidationErrors | null | undefined) {
+    this._errors = value;
+    this.setErrorMessage();
+  }
+
   constructor(private el: ElementRef) {
     this.htmlElement = el;
   }
 
-  setStyle() {
+  setStyle(): void {
     if (!this.htmlElement) throw "El elemento html no existe";
     this.htmlElement.nativeElement.style.color = this._color;
+  }
+
+  setErrorMessage(): void {
+    if (!this.htmlElement) throw "El elemento html no existe";
+    if (!this._errors) {
+      this.htmlElement.nativeElement.innerText = "";
+      return;
+    }
+
+    const errors = Object.keys(this._errors);
+
+    if (errors.includes("required")) {
+      this.htmlElement.nativeElement.innerText = "Este campo es requerido";
+      return;
+    }
+
+    if (errors.includes("minlength")) {
+      const min = this._errors["minlength"]["requiredLength"];
+      const current = this._errors["minlength"]["actualLength"];
+      this.htmlElement.nativeElement.innerText = `El campo minimo es de ${min} y actualmente tiene ${current}`;
+      return;
+    }
+    if (errors.includes("email")) {
+      this.htmlElement.nativeElement.innerText =
+        "El campo tiene que ser un email";
+      return;
+    }
   }
 }
