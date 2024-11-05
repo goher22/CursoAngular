@@ -2,17 +2,23 @@
 <hr />
 <div class="row">
   <div class="col-4">
-    <h4>Usuario Actual:</h4>
-    <button class="btn btn-primary">Anterior</button>
+    <h4>Usuario Actual: {{ userId() }}</h4>
+    <button (click)="loadUser(userId() - 1)" class="btn btn-primary">
+      Anterior
+    </button>
     &nbsp;
-    <button class="btn btn-primary">Siguiente</button>
+    <button (click)="loadUser(userId() + 1)" class="btn btn-primary">
+      Siguiente
+    </button>
   </div>
   <div class="col-8">
     <h3>Usuario:</h3>
-    <p>Email:</p>
-    <p>Nombre:</p>
+    <p>Email: {{ currentUser()?.email }}</p>
+    <p>
+      Nombre: {{ currentUser()?.first_name }} {{ currentUser()?.last_name }}
+    </p>
 
-    <img src=".." alt="Avatar" />
+    <img [src]="currentUser()?.avatar" alt="Avatar" />
   </div>
 
   <div class="col-8 text-danger">
