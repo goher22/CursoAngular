@@ -1,11 +1,20 @@
-import { Component, computed, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  OnDestroy,
+  OnInit,
+  signal,
+} from "@angular/core";
 import { User } from "../../interfaces/user-request.interface";
 
 @Component({
   templateUrl: "./properties-pages.component.html",
   styleUrl: "./properties-pages.component.css",
 })
-export class PropertiesPagesComponent {
+export class PropertiesPagesComponent implements OnDestroy, OnInit {
+  public counter = signal(10);
+
   public user = signal<User>({
     id: 2,
     email: "janet.weaver@reqres.in",
@@ -19,6 +28,24 @@ export class PropertiesPagesComponent {
       ? "Usuarion no encontrador"
       : `${this.user()!.first_name} ${this.user()!.last_name}`,
   );
+
+  public userChangeEffect = effect(() => {
+    console.log(`${this.user().first_name} - ${this.counter()}`);
+  });
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.counter.update((current) => current + 1);
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    this.userChangeEffect.destroy();
+  }
+
+  increaseBy(value: number) {
+    this.counter.update((current) => current + value);
+  }
 
   onFieldUpdated(field: keyof User, value: string) {
     // this.user.set({
