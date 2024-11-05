@@ -8,6 +8,7 @@
       type="text"
       class="form-control"
       (input)="onFieldUpdated('email', txtEmail.value)"
+      [value]="user().email"
     />
 
     <input
@@ -15,6 +16,7 @@
       type="text"
       class="form-control"
       (input)="onFieldUpdated('first_name', txtFirstName.value)"
+      [value]="user().first_name"
     />
 
     <input
@@ -22,11 +24,11 @@
       type="text"
       class="form-control"
       (input)="onFieldUpdated('last_name', txtLastName.value)"
+      [value]="user().last_name"
     />
   </div>
   <div class="col-6">
-    <pre>
-      {{ "asf" }}
-    </pre>
+    <pre>{{ user() | json }}</pre>
+    {{ fullName() }}
   </div>
 </div>
