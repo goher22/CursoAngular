@@ -1,1 +1,32 @@
-<p>properties-pages works!</p>
+<h1>Mutaciones</h1>
+<hr />
+
+<div class="row">
+  <div class="col-6">
+    <input
+      #txtEmail
+      type="text"
+      class="form-control"
+      (input)="onFieldUpdated('email', txtEmail.value)"
+    />
+
+    <input
+      #txtFirstName
+      type="text"
+      class="form-control"
+      (input)="onFieldUpdated('first_name', txtFirstName.value)"
+    />
+
+    <input
+      #txtLastName
+      type="text"
+      class="form-control"
+      (input)="onFieldUpdated('last_name', txtLastName.value)"
+    />
+  </div>
+  <div class="col-6">
+    <pre>
+      {{ "asf" }}
+    </pre>
+  </div>
+</div>

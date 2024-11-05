@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  templateUrl: './properties-pages.component.html',
-  styleUrl: './properties-pages.component.css'
+  templateUrl: "./properties-pages.component.html",
+  styleUrl: "./properties-pages.component.css",
 })
 export class PropertiesPagesComponent {
-
+  onFieldUpdated(field: string, value: string) {}
 }
