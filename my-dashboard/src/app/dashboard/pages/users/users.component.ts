@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
   standalone: true,
   imports: [],
-  templateUrl: './users.component.html',
-  styles: ``
+  templateUrl: "./users.component.html",
+  styles: ``,
 })
-export class UsersComponent {
-
-}
+export default class UsersComponent {}

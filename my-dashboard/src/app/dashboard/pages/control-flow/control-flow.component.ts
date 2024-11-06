@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
   standalone: true,
   imports: [],
-  templateUrl: './control-flow.component.html',
-  styles: ``
+  templateUrl: "./control-flow.component.html",
+  styles: ``,
 })
-export class ControlFlowComponent {
-
-}
+export default class ControlFlowComponent {}

@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
   standalone: true,
   imports: [],
-  templateUrl: './view-transition.component.html',
-  styles: ``
+  templateUrl: "./view-transition.component.html",
+  styles: ``,
 })
-export class ViewTransitionComponent {
-
-}
+export default class ViewTransitionComponent {}
