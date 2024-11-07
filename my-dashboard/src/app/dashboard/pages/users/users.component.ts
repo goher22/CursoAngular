@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
+import { UsersService } from "@services/users.service";
 
 @Component({
   standalone: true,
@@ -6,4 +7,6 @@ import { Component } from "@angular/core";
   templateUrl: "./users.component.html",
   styles: ``,
 })
-export default class UsersComponent {}
+export default class UsersComponent {
+  public usersServices = Inject(UsersService);
+}
