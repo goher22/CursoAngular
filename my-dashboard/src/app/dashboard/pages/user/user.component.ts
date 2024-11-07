@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, signal } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { toSignal } from "@angular/core/rxjs-interop";
 
@@ -12,7 +12,7 @@ import { UsersService } from "@services/users.service";
   standalone: true,
   imports: [CommonModule, TitleComponent],
   template: `
-    <app-title title="User" />
+    <app-title [title]="titleLaber()" />
 
     @if (user()) {
       <section>
@@ -31,6 +31,11 @@ import { UsersService } from "@services/users.service";
 export default class UserComponent {
   private route = inject(ActivatedRoute);
   private userService = inject(UsersService);
+  public titleLaber = computed(() => {
+    return this.user()
+      ? `Información del usuario ${this.user()!.first_name} ${this.user()!.last_name}`
+      : "Información del usuario";
+  });
   // public user = signal<User | undefined>(undefined);
   public user = toSignal(
     this.route.params.pipe(
