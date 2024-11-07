@@ -3,7 +3,7 @@ export interface UserResponse {
   per_page: number;
   total: number;
   total_pages: number;
-  users: User[];
+  data: User[];
   support: Support;
 }
 
